@@ -14,7 +14,7 @@ It's designed to be fast, customizable, and ready for integration into real-worl
 ## 🚀 Getting Started
 
 ```bash
-git clone [https://github.com/zapp-agency/zapp-admin-panel.git](https://github.com/zapp-agency/zap-adminpanel.git)
+git clone https://github.com/zapp-agency/zap-adminpanel.git
 cd zapp-admin-panel
 npm install
 npm run dev
