@@ -1,6 +1,6 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
-import { getSecureCookie } from "../../utils/storages/cookies";
+import { getSecureCookie } from "../../utils/services/common/cookies";
 
 export default function AuthGuard({
   children,

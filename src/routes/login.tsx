@@ -1,6 +1,6 @@
 import { useForm } from '@tanstack/react-form';
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { setSecureCookie } from '../utils/storages/cookies';
+import { setSecureCookie } from '../utils/services/common/cookies';
 
 export const Route = createFileRoute('/login')({
   component: Login,
