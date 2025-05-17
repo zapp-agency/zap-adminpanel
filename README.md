@@ -14,7 +14,7 @@ It's designed to be fast, customizable, and ready for integration into real-worl
 ## 🚀 Getting Started
 
 ```bash
-git clone https://github.com/zapp-agency/zapp-admin-panel.git
+git clone [https://github.com/zapp-agency/zapp-admin-panel.git](https://github.com/zapp-agency/zap-adminpanel.git)
 cd zapp-admin-panel
 npm install
 npm run dev
@@ -23,10 +23,8 @@ npm run dev
 ## 🧩 Features
 
 - Modular component structure
-- Theme switcher (light/dark)
-- Sidebar, navbar, dashboard widgets
-- Auth layout ready
-- Responsive and PWA-ready
+- Theme switcher (light/dark/green/red)
+- direction switcher (ltr/rtl)
 
 ## 🧪 Reuse Guide
 
