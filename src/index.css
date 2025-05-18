@@ -1,8 +1,36 @@
 @import 'tailwindcss';
 
+@font-face {
+  font-family: iranYekan;
+  font-display: swap;
+  src: url('./assets/font/IRANYekanXVF.woff2') format('woff2');
+}
+
 :root {
-  --background: #ffffff;
+  --background: #fcfcfd;
+  --white: #fcfcfd;
+  --black: #1c2024;
+
+  --primary-9: #0090ff;
+  --primary-7: #8ec8f6;
+  --primary-10: #0588f0;
+  --primary-11: #0d74ce;
+  --primary-12: #113264;
+
+  --natural-5: #e0e1e6;
+  --natural-12: #1c2024;
+
+  --gray: #60646c;
+  --gray-2: #80838d;
+  --gray-3: #8b8d98;
+  --gray-4: #b9bbc6;
+
+  --error-9: #e5484d;
+
+  --divider: #e0e1e6;
+
   --foreground: #000000;
+  --font: iranYekan;
 }
 .dark {
   --background: #0f172a;
@@ -20,12 +48,46 @@
 }
 @theme {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-white: var(--white);
+  --color-black: var(--black);
+
+  --color-primary-9: var(--primary-9);
+  --color-primary-7: var(--primary-7);
+  --color-primary-10: var(--primary-10);
+  --color-primary-11: var(--primary-11);
+  --color-primary-12: var(--primary-12);
+
+  --color-natural-5: var(--natural-5);
+  --color-natural-12: var(--natural-12);
+
+  --color-gray: var(--gray);
+  --color-gray-2: var(--gray-2);
+  --color-gray-3: var(--gray-3);
+  --color-gray-4: var(--gray-4);
+
+  --color-error-9: var(--error-9);
+
+  --color-divider: var(--divider);
+
+  --default-font-family: var(--font);
+  --font-weight-100: 100;
+  --font-weight-200: 200;
+  --font-weight-300: 300;
+  --font-weight-400: 400;
+  --font-weight-500: 500;
+  --font-weight-600: 600;
+  --font-weight-700: 700;
+  --font-weight-800: 800;
+  --font-weight-900: 900;
+  --font-weight-1000: 1000;
+
+
+  --
 }
 
 @layer base {
   body {
-    @apply bg-background text-foreground transition-colors;
+    @apply bg-background text-gray-2 font-600 transition-colors rouded;
   }
 }
 @layer utilities {

@@ -4,14 +4,19 @@ import storage from 'redux-persist/lib/storage';
 import directionReducer from './features/direction/directionSlice';
 import themeReducer from './features/theme/themeSlice';
 
-const persistConfig = {
-  key: 'root',
+// Separate persist configs
+const themePersistConfig = {
+  key: 'theme',
   storage,
-  whitelist: ['theme', 'direction'],
 };
 
-const persistedThemeReducer = persistReducer(persistConfig, themeReducer);
-const persistedDirectionReducer = persistReducer(persistConfig, directionReducer);
+const directionPersistConfig = {
+  key: 'direction',
+  storage,
+};
+
+const persistedThemeReducer = persistReducer(themePersistConfig, themeReducer);
+const persistedDirectionReducer = persistReducer(directionPersistConfig, directionReducer);
 
 export const store = configureStore({
   reducer: {
