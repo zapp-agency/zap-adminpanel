@@ -9,4 +9,14 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  resolve: {
+    alias: {
+      '@': '/src',
+      '@components': '/src/components',
+      '@core': '/src/core',
+      '@utils': '/src/utils',
+      '@routes': '/src/routes',
+      '@config': '/src/config'
+    }
+  }
 });

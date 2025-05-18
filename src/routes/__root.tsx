@@ -1,11 +1,11 @@
+import { selectDirection } from "@/core/store/features/direction/directionSelector";
+import { changeDirection } from "@/core/store/features/direction/directionSlice";
+import { selectTheme } from "@/core/store/features/theme/themeSelectore";
+import { changeTheme } from "@/core/store/features/theme/themeSlice";
+import { useAppDispatch, useAppSelector } from "@/core/store/hooks";
+import type { Theme } from "@/core/store/types";
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
-import { useAppDispatch, useAppSelector } from "../core/store/hooks";
-import { selectTheme } from "../core/store/features/theme/themeSelectore";
-import type { Theme } from "../core/store/types";
-import { changeTheme } from "../core/store/features/theme/themeSlice";
 import { useEffect } from "react";
-import { selectDirection } from "../core/store/features/direction/directionSelector";
-import { changeDirection } from "../core/store/features/direction/directionSlice";
 
 export const Route = createRootRoute({
   component: RootComponent,

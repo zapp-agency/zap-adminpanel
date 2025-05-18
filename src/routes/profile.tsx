@@ -1,5 +1,5 @@
+import AuthGuard from "@/core/auth/AuthGuard";
 import { createFileRoute } from "@tanstack/react-router";
-import AuthGuard from "../core/auth/AuthGuard";
 
 export const Route = createFileRoute("/profile")({
   component: Profile,
