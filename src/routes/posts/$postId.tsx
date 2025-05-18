@@ -1,6 +1,6 @@
-import { createFileRoute, useParams } from "@tanstack/react-router";
+import { createFileRoute, useParams } from '@tanstack/react-router';
 
-export const Route = createFileRoute("/posts/$postId")({
+export const Route = createFileRoute('/posts/$postId')({
   component: PostId,
   loader: async ({ params }) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));

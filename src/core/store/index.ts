@@ -7,7 +7,7 @@ import themeReducer from './features/theme/themeSlice';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['theme',"direction"],
+  whitelist: ['theme', 'direction'],
 };
 
 const persistedThemeReducer = persistReducer(persistConfig, themeReducer);
@@ -16,7 +16,7 @@ const persistedDirectionReducer = persistReducer(persistConfig, directionReducer
 export const store = configureStore({
   reducer: {
     theme: persistedThemeReducer,
-    direction:persistedDirectionReducer
+    direction: persistedDirectionReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

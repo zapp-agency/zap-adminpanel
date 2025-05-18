@@ -1,15 +1,15 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from '@tanstack/react-router';
 
-export const Route = createFileRoute("/posts/")({
+export const Route = createFileRoute('/posts/')({
   component: Posts,
   validateSearch: (search) => {
     return {
-      q: (search.q as string) || "",
+      q: (search.q as string) || '',
     };
   },
   loaderDeps: ({ search: { q } }) => ({ q }),
   loader: async ({ deps: { q } }) => {
-    const posts = ["post1", "post2", "post3"];
+    const posts = ['post1', 'post2', 'post3'];
     return {
       posts: posts?.filter((post) => post.includes(q)),
     };

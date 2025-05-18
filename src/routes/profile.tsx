@@ -1,15 +1,15 @@
-import AuthGuard from "@/core/auth/AuthGuard";
-import { createFileRoute } from "@tanstack/react-router";
+import AuthGuard from '@/core/auth/AuthGuard';
+import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute("/profile")({
+export const Route = createFileRoute('/profile')({
   component: Profile,
 });
 
 function Profile() {
   return (
     <AuthGuard>
-      <div className="max-w-md mx-auto mt-10">
-        <h2 className="text-2xl font-semibold mb-4">User Profile</h2>
+      <div className="mx-auto mt-10 max-w-md">
+        <h2 className="mb-4 text-2xl font-semibold">User Profile</h2>
         <p>Welcome back, user@example.com</p>
       </div>
     </AuthGuard>

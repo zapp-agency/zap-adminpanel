@@ -1,14 +1,10 @@
-import React from "react";
+import React from 'react';
 
-interface SubmitButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface SubmitButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
 }
 
-const SubmitButton: React.FC<SubmitButtonProps> = ({
-  children = "Submit",
-  ...props
-}) => {
+const SubmitButton: React.FC<SubmitButtonProps> = ({ children = 'Submit', ...props }) => {
   return (
     <button type="submit" {...props}>
       {children}

@@ -1,22 +1,17 @@
-import { selectDirection } from "@/core/store/features/direction/directionSelector";
-import { changeDirection } from "@/core/store/features/direction/directionSlice";
-import { selectTheme } from "@/core/store/features/theme/themeSelectore";
-import { changeTheme } from "@/core/store/features/theme/themeSlice";
-import { useAppDispatch, useAppSelector } from "@/core/store/hooks";
-import type { Theme } from "@/core/store/types";
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { selectDirection } from '@/core/store/features/direction/directionSelector';
+import { changeDirection } from '@/core/store/features/direction/directionSlice';
+import { selectTheme } from '@/core/store/features/theme/themeSelectore';
+import { changeTheme } from '@/core/store/features/theme/themeSlice';
+import { useAppDispatch, useAppSelector } from '@/core/store/hooks';
+import type { Theme } from '@/core/store/types';
+import { createRootRoute, Link, Outlet } from '@tanstack/react-router';
+import { useEffect } from 'react';
 
 export const Route = createRootRoute({
   component: RootComponent,
 });
 
-const THEME_OPTIONS = Object.freeze<readonly Theme[]>([
-  "light",
-  "dark",
-  "green",
-  "purple",
-]);
+const THEME_OPTIONS = Object.freeze<readonly Theme[]>(['light', 'dark', 'green', 'purple']);
 
 const isValidTheme = (value: string): value is Theme => {
   return THEME_OPTIONS.includes(value as Theme);
@@ -47,26 +42,22 @@ function RootComponent() {
 
   return (
     <>
-      <div className="p-2 flex gap-2">
+      <div className="flex gap-2 p-2">
         <Link to="/" className="[&.active]:font-bold">
           Home
-        </Link>{" "}
+        </Link>{' '}
         <Link to="/about" className="[&.active]:font-bold">
           About
         </Link>
         <Link to="/profile" className="[&.active]:font-bold">
           Profile
-        </Link>{" "}
-        <Link
-          to="/posts"
-          search={{ q: "post2" }}
-          className="[&.active]:font-bold"
-        >
+        </Link>{' '}
+        <Link to="/posts" search={{ q: 'post2' }} className="[&.active]:font-bold">
           Posts
-        </Link>{" "}
+        </Link>{' '}
       </div>
-      <header className="mb-4 flex justify-between items-center">
-        <div className="flex gap-4 items-center">
+      <header className="mb-4 flex items-center justify-between">
+        <div className="flex items-center gap-4">
           <h1 className="text-2xl font-bold">Zapp Admin</h1>
         </div>
         <form onSubmit={handleSubmit} className="flex items-center gap-2">
@@ -90,7 +81,7 @@ function RootComponent() {
             type="checkbox"
             name="ch1"
             id="ch1"
-            checked={direction === "rtl" ? true : false}
+            checked={direction === 'rtl' ? true : false}
             onChange={() => {
               dispatch(changeDirection());
               console.log(direction);

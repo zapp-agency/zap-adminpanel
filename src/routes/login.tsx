@@ -1,36 +1,32 @@
 import { setSecureCookie } from '@/utils/services/common/cookies';
 import { useForm } from '@tanstack/react-form';
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/login')({
   component: Login,
-})
+});
 
 function Login() {
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const form = useForm({
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
-    onSubmit: async ({
-      value,
-    }: {
-      value: { email: string; password: string };
-    }) => {
+    onSubmit: async ({ value }: { value: { email: string; password: string } }) => {
       await new Promise((resolve) =>
         setTimeout(() => {
-          setSecureCookie("user", value);
+          setSecureCookie('user', value);
           resolve(undefined);
         }, 500)
       );
       console.log(value);
-      navigate({ to: "/profile" });
+      navigate({ to: '/profile' });
     },
   });
 
   return (
-    <div style={{ maxWidth: 400, margin: "2rem auto" }}>
+    <div style={{ maxWidth: 400, margin: '2rem auto' }}>
       <h2>Sign In</h2>
       <form
         onSubmit={(e) => {
@@ -49,7 +45,7 @@ const navigate = useNavigate();
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}
                   required
-                  style={{ width: "100%", padding: 8, marginTop: 4 }}
+                  style={{ width: '100%', padding: 8, marginTop: 4 }}
                 />
               )}
             />
@@ -66,13 +62,13 @@ const navigate = useNavigate();
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}
                   required
-                  style={{ width: "100%", padding: 8, marginTop: 4 }}
+                  style={{ width: '100%', padding: 8, marginTop: 4 }}
                 />
               )}
             />
           </label>
         </div>
-        <button type="submit" style={{ padding: "8px 16px" }}>
+        <button type="submit" className="" style={{ padding: '8px 16px' }}>
           Sign In
         </button>
       </form>
