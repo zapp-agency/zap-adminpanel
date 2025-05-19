@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 // import { router } from "./config/router";
 
-import './index.css';
+import './globals.css';
 import { Provider } from 'react-redux';
 import { persistor, store } from './core/store';
 import { PersistGate } from 'redux-persist/integration/react';
