@@ -8,10 +8,10 @@
 
 :root {
   /* borders */
-  --borders-xs: 0.0625rem;
-  --borders-sm: 0.09375rem;
-  --borders-md: 0.125rem;
-  --borders-lg: 0.1875rem;
+  --borders-xs: 1px;
+  --borders-sm: 1.5px;
+  --borders-md: 2px;
+  --borders-lg: 3px;
 
   /* font size */
   --size-10: 0.625rem;
@@ -326,7 +326,7 @@
 
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
-  --spacing-md: 0.75re;
+  --spacing-md: 0.75rem;
   --spacing-lg: 1rem;
   --spacing-xl: 1.25rem;
   --spacing-2xl: 1.5rem;
@@ -355,24 +355,21 @@
   --font-weight-lg: 600;
   --font-weight-xl: 700;
   --font-weight-2xl: 800;
-  /* --font-weight-100: 100;
-  --font-weight-200: 200;
-  --font-weight-300: 300;
-  --font-weight-400: 400;
-  --font-weight-500: 500;
-  --font-weight-600: 600;
-  --font-weight-700: 700;
-  --font-weight-800: 800;
-  --font-weight-900: 900;
-  --font-weight-1000: 1000; */
 }
 
 @layer base {
   body {
     @apply bg-panel max-md:bg-primary-4 text-content-gray-2 transition-colors;
   }
+}
+@layer utilities {
+  .container {
+    @apply mx-auto;
+  }
+}
+@layer components {
   .borders-xs {
-    @apply border-(length:--borders-xs);
+    @apply border-[length:--borders-xs];
   }
   .borders-sm {
     @apply border-(length:--borders-sm);
@@ -382,10 +379,5 @@
   }
   .borders-lg {
     @apply border-(length:--borders-lg);
-  }
-}
-@layer utilities {
-  .container {
-    @apply mx-auto;
   }
 }

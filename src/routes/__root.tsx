@@ -14,7 +14,6 @@ function RootComponent() {
 
   return (
     <React.Fragment>
-      <div className="p-xs borders-xs ">سلام علیکم</div>
       <Outlet />
     </React.Fragment>
   );

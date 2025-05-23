@@ -6,7 +6,7 @@ interface directionState {
 }
 
 const initialState: directionState = {
-  direction: 'ltr',
+  direction: 'rtl',
 };
 
 export const directionSlice = createSlice({
