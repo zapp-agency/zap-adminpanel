@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/Button';
+import Button from '@/components/ui/Button';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/')({
@@ -8,7 +8,7 @@ export const Route = createFileRoute('/')({
 function RouteComponent() {
   return (
     <div className="p-xs borders-xs grid h-screen place-content-center">
-      <Button variant='outline' color='success' size='md' >
+      <Button variant='ghost' color='error' iconOnly size='md' >
         تایید
       </Button>
     </div>
