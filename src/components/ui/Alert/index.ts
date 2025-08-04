@@ -1,2 +1,2 @@
-import { Alert } from './Alert';
-export default Alert;
+import { Toaster } from './Alert';
+export default Toaster;

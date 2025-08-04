@@ -1,12 +1,22 @@
-import { type HTMLAttributes, type HtmlHTMLAttributes, type ReactNode, forwardRef } from 'react';
+import {
+  type HTMLAttributes,
+  type HtmlHTMLAttributes,
+  type ReactNode,
+  forwardRef,
+  useEffect,
+} from 'react';
 
 import { type VariantProps, cva } from 'class-variance-authority';
 
 import { cn } from '@/utils';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Cancel01Icon } from '@hugeicons/core-free-icons';
+import Button from '../Button';
+import { useSelector } from 'react-redux';
+import type { RootState } from '@/core/store';
+import { useToast } from '@/core/hooks/useToaster';
 
-const alertContainerVariants = cva('fixed z-100 flex flex-col gap-lg px-lg py-md', {
+const alertContainerVariants = cva('fixed z-100 flex flex-col gap-md px-lg py-md', {
   variants: {
     position: {
       'top-left': 'top-0 left-0',
@@ -23,7 +33,7 @@ const alertContainerVariants = cva('fixed z-100 flex flex-col gap-lg px-lg py-md
 });
 
 const alertVariants = cva(
-  'flex items-center justify-between min-w-[420px]  gap-lg px-lg py-md  border-sm ',
+  'flex items-center justify-between min-w-[420px]  gap-lg px-lg py-md  borders-sm ',
   {
     variants: {
       radius: {
@@ -57,37 +67,25 @@ interface AlertContainerProps
   extends Omit<HtmlHTMLAttributes<HTMLDivElement>, 'color'>,
     VariantProps<typeof alertContainerVariants> {}
 
-interface AlertProps
+export interface Toast
   extends Omit<HtmlHTMLAttributes<HTMLDivElement>, 'color'>,
     VariantProps<typeof alertVariants> {
   action?: (...args: any[]) => any;
+  id: string;
+  actionText?: string;
   hasClose?: boolean;
   title: string;
   subtitle?: string;
   icon?: ReactNode;
-  position?:
-    | 'top-center'
-    | 'top-left'
-    | 'top-right'
-    | 'bottom-center'
-    | 'bottom-left'
-    | 'bottom-right';
+  duration?: number;
 }
 
-const AlertContainer = forwardRef<HTMLDivElement, AlertContainerProps>(
-  ({ position, children }, ref): ReactNode => {
-    return (
-      <div ref={ref} className={cn(alertContainerVariants({ position }))}>
-        {children}
-      </div>
-    );
-  }
-);
-
-const Alert = forwardRef<HTMLDivElement, AlertProps>(
+const Alert = forwardRef<HTMLDivElement, Toast>(
   (
     {
+      id,
       action,
+      actionText,
       hasClose = true,
       className,
       color = 'primary',
@@ -95,30 +93,49 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(
       title,
       subtitle,
       radius,
-      position = 'top-center',
+      duration = 3000,
       ...props
     },
     ref
   ): ReactNode => {
+    const { dismiss } = useToast();
+
+    useEffect(() => {
+      const timer = setTimeout(() => dismiss(id), duration);
+      return () => clearTimeout(timer);
+    }, [id, duration, dismiss]);
+
     return (
-      <AlertContainer position={position}>
-        <div ref={ref} {...props} className={cn(alertVariants({ radius, color }), className)}>
-          <div className="gap-md flex items-center">
-            <div className="rounded-full *:stroke-white"></div>
-            {icon}
-            <div className="flex flex-col items-start">
-              <h6 className="text-size-16 font-xl">{title}</h6>
-              <p className="text-size-14 font-lg">{subtitle}</p>
-            </div>
-          </div>
-          <div className="gap-md border-sm flex items-center">
-            <HugeiconsIcon icon={Cancel01Icon} />
+      <div ref={ref} {...props} className={cn(alertVariants({ radius, color }), className)}>
+        <div className={`${icon && 'gap-md'}" items-center" flex`}>
+          <div className="rounded-full *:stroke-white"></div>
+          {icon}
+          <div className="flex flex-col items-start">
+            <h6 className="text-size-16 font-xl">{title}</h6>
+            <p className="text-size-14 font-lg">{subtitle}</p>
           </div>
         </div>
-        <div className=""></div>
-      </AlertContainer>
+        <div className="gap-md flex items-center">
+          {action && <Button>{actionText}</Button>}
+          <HugeiconsIcon
+            icon={Cancel01Icon}
+            onClick={() => {
+              dismiss(id);
+            }}
+          />
+        </div>
+      </div>
     );
   }
 );
 
-export { Alert };
+const Toaster = forwardRef<HTMLDivElement, AlertContainerProps>(({ position }, ref): ReactNode => {
+  const toasts = useSelector((state: RootState) => state.toast.toasts);
+  return (
+    <div ref={ref} className={cn(alertContainerVariants({ position }))}>
+      {toasts?.map((toast) => <Alert key={toast.id} {...toast} />)}
+    </div>
+  );
+});
+
+export { Toaster };

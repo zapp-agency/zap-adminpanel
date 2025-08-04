@@ -3,7 +3,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import directionReducer from './features/direction/directionSlice';
 import themeReducer from './features/theme/themeSlice';
-
+import toastReduce from './features/toaster/toastSlice';
 // Separate persist configs
 const themePersistConfig = {
   key: 'theme',
@@ -22,6 +22,7 @@ export const store = configureStore({
   reducer: {
     theme: persistedThemeReducer,
     direction: persistedDirectionReducer,
+    toast: toastReduce,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

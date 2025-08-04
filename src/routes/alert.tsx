@@ -1,4 +1,6 @@
-import Alert from '@/components/ui/Alert';
+import Toaster from '@/components/ui/Alert';
+import Button from '@/components/ui/Button';
+import { useToast } from '@/core/hooks/useToaster';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/alert')({
@@ -6,9 +8,17 @@ export const Route = createFileRoute('/alert')({
 });
 
 function RouteComponent() {
+  const { toast } = useToast();
   return (
-    <div className="flex flex-col">
-      Hello "/alert"! <Alert title="this is toast" subtitle="this is subtitle for the toast" />{' '}
+    <div className="flex h-screen items-center justify-center">
+      <Toaster position={'top-right'} />
+      <Button
+        onClick={() => {
+          toast({ title: 'hello', subtitle: 'hello', color: 'danger' });
+        }}
+      >
+        Show
+      </Button>
     </div>
   );
 }
