@@ -434,9 +434,28 @@
   --color-field-Error-message: var(--danger-9);
   --color-field-Error-message-icon: var(--danger-9);
 
+  /* Alert tokens */
 
+  /* primary */
+  --color-alert-primary-normal: var(--primary-9);
+  --color-alert-primary-background: var(--primary-4);
 
-  
+  /* secondary */
+  --color-alert-secondary-normal: var(--info-9);
+  --color-alert-secondary-background: var(--info-4);
+
+  /* success */
+  --color-alert-success-normal: var(--success-9);
+  --color-alert-success-background: var(--success-4);
+
+  /* Warning */
+  --color-alert-warning-normal: var(--warning-10);
+  --color-alert-warning-background: var(--warning-3);
+
+  /* Danger */
+  --color-alert-danger-normal: var(--danger-9);
+  --color-alert-danger-background: var(--danger-4);
+
   --radius-1: 0.5rem;
   --radius-2: 0.75rem;
   --radius-3: 1rem;

@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as ContactusImport } from './routes/contactus'
+import { Route as AlertImport } from './routes/alert'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 
@@ -20,6 +21,12 @@ import { Route as IndexImport } from './routes/index'
 const ContactusRoute = ContactusImport.update({
   id: '/contactus',
   path: '/contactus',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AlertRoute = AlertImport.update({
+  id: '/alert',
+  path: '/alert',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -53,6 +60,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
+    '/alert': {
+      id: '/alert'
+      path: '/alert'
+      fullPath: '/alert'
+      preLoaderRoute: typeof AlertImport
+      parentRoute: typeof rootRoute
+    }
     '/contactus': {
       id: '/contactus'
       path: '/contactus'
@@ -68,12 +82,14 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/alert': typeof AlertRoute
   '/contactus': typeof ContactusRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/alert': typeof AlertRoute
   '/contactus': typeof ContactusRoute
 }
 
@@ -81,27 +97,30 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/alert': typeof AlertRoute
   '/contactus': typeof ContactusRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contactus'
+  fullPaths: '/' | '/about' | '/alert' | '/contactus'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contactus'
-  id: '__root__' | '/' | '/about' | '/contactus'
+  to: '/' | '/about' | '/alert' | '/contactus'
+  id: '__root__' | '/' | '/about' | '/alert' | '/contactus'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AlertRoute: typeof AlertRoute
   ContactusRoute: typeof ContactusRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AlertRoute: AlertRoute,
   ContactusRoute: ContactusRoute,
 }
 
@@ -117,6 +136,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
+        "/alert",
         "/contactus"
       ]
     },
@@ -125,6 +145,9 @@ export const routeTree = rootRoute
     },
     "/about": {
       "filePath": "about.tsx"
+    },
+    "/alert": {
+      "filePath": "alert.tsx"
     },
     "/contactus": {
       "filePath": "contactus.tsx"
