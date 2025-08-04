@@ -14,6 +14,7 @@ function RootComponent() {
 
   return (
     <React.Fragment>
+      
       <Outlet />
     </React.Fragment>
   );
