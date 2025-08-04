@@ -8,7 +8,7 @@ export const Route = createFileRoute('/')({
 function RouteComponent() {
   return (
     <div className="p-xs borders-xs grid h-screen place-content-center">
-      <Button variant='ghost' color='error' iconOnly size='md' >
+      <Button variant="ghost" color="error" iconOnly size="md">
         تایید
       </Button>
     </div>
