@@ -456,6 +456,8 @@
   --color-alert-danger-normal: var(--danger-9);
   --color-alert-danger-background: var(--danger-4);
 
+
+  
   --radius-1: 0.5rem;
   --radius-2: 0.75rem;
   --radius-3: 1rem;
@@ -497,6 +499,8 @@
   --font-weight-lg: 600;
   --font-weight-xl: 700;
   --font-weight-2xl: 800;
+
+  --
 }
 
 @layer base {
@@ -511,15 +515,15 @@
 }
 @layer components {
   .borders-xs {
-    @apply border-[length:--borders-xs];
+    @apply border-[length:var(--borders-xs)];
   }
   .borders-sm {
-    @apply border-(length:--borders-sm);
+    @apply border-(length:var(--borders-sm));
   }
   .borders-md {
-    @apply border-(length:--borders-md);
+    @apply border-(length:var(--borders-md));
   }
   .borders-lg {
-    @apply border-(length:--borders-lg);
+    @apply border-(length:var(--borders-lg));
   }
 }
