@@ -15,7 +15,7 @@ const toastSlice = createSlice({
   reducers: {
     addToast: (state, action: PayloadAction<Omit<Toast, 'id'>>) => {
       const id = crypto.randomUUID();
-      state.toasts.push({ id, ...action.payload });
+      state.toasts.unshift({ id, ...action.payload });
     },
     removeToast: (state, action: PayloadAction<string>) => {
       state.toasts = state.toasts.filter((t) => t.id !== action.payload);

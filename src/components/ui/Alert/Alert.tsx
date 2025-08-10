@@ -1,22 +1,21 @@
-import {
-  type HTMLAttributes,
-  type HtmlHTMLAttributes,
-  type ReactNode,
-  forwardRef,
-  useEffect,
-} from 'react';
+// React Core
+import { type HtmlHTMLAttributes, type ReactNode, useEffect, useRef } from 'react';
 
+// Third Party Utilities
 import { type VariantProps, cva } from 'class-variance-authority';
-
 import { cn } from '@/utils';
-import { HugeiconsIcon } from '@hugeicons/react';
-import { Cancel01Icon } from '@hugeicons/core-free-icons';
-import Button from '../Button';
-import { useSelector } from 'react-redux';
-import type { RootState } from '@/core/store';
-import { useToast } from '@/core/hooks/useToaster';
 
-const alertContainerVariants = cva('fixed z-100 flex flex-col gap-md px-lg py-md', {
+// Third Party Hooks
+import { useSelector } from 'react-redux';
+
+// Redux
+import type { RootState } from '@/core/store';
+import { Cancel01Icon } from 'hugeicons-react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { dismiss } from '@/utils/Toast/toast.util';
+
+const alertContainerVariants = cva('fixed  flex flex-col gap-md px-lg py-md max-w-[420px] w-full', {
   variants: {
     position: {
       'top-left': 'top-0 left-0',
@@ -33,7 +32,7 @@ const alertContainerVariants = cva('fixed z-100 flex flex-col gap-md px-lg py-md
 });
 
 const alertVariants = cva(
-  'flex items-center justify-between min-w-[420px]  gap-lg px-lg py-md  borders-sm ',
+  'flex items-center justify-between  w-full gap-lg px-lg py-md  borders-sm ',
   {
     variants: {
       radius: {
@@ -45,15 +44,15 @@ const alertVariants = cva(
       },
       color: {
         primary:
-          'bg-alert-primary-background border-alert-primary-normal *:stroke-alert-primary-normal text-alert-primary-normal',
+          'bg-alert-primary-background border-alert-primary-normal *:stroke-alert-primary-normal text-alert-primary-normal [&_.iconContainer]:bg-alert-primary-normal',
         secondary:
-          'bg-alert-secondary-background border-alert-secondary-normal *:stroke-alert-secondary-normal text-alert-secondary-normal',
+          'bg-alert-secondary-background border-alert-secondary-normal *:stroke-alert-secondary-normal text-alert-secondary-normal [&_.iconContainer]:bg-alert-secondary-normal',
         success:
-          'bg-alert-success-background border-alert-success-normal *:stroke-alert-success-normal text-alert-success-normal',
+          'bg-alert-success-background border-alert-success-normal *:stroke-alert-success-normal text-alert-success-normal [&_.iconContainer]:bg-alert-success-normal',
         warning:
-          'bg-alert-warning-background border-alert-warning-normal *:stroke-alert-warning-normal text-alert-warning-normal',
+          'bg-alert-warning-background border-alert-warning-normal *:stroke-alert-warning-normal text-alert-warning-normal [&_.iconContainer]:bg-alert-warning-normal',
         danger:
-          'bg-alert-danger-background  border-alert-danger-normal  *:stroke-alert-danger-normal text-alert-danger-normal',
+          'bg-alert-danger-background  border-alert-danger-normal  *:stroke-alert-danger-normal text-alert-danger-normal [&_.iconContainer]:bg-alert-danger-normal',
       },
     },
     defaultVariants: {
@@ -70,72 +69,138 @@ interface AlertContainerProps
 export interface Toast
   extends Omit<HtmlHTMLAttributes<HTMLDivElement>, 'color'>,
     VariantProps<typeof alertVariants> {
-  action?: (...args: any[]) => any;
+  action?: ReactNode;
   id: string;
-  actionText?: string;
   hasClose?: boolean;
   title: string;
   subtitle?: string;
   icon?: ReactNode;
   duration?: number;
+  onComplete?: (...args: unknown[]) => void;
 }
 
-const Alert = forwardRef<HTMLDivElement, Toast>(
-  (
-    {
-      id,
-      action,
-      actionText,
-      hasClose = true,
-      className,
-      color = 'primary',
-      icon,
-      title,
-      subtitle,
-      radius,
-      duration = 3000,
-      ...props
+const Alert = ({
+  id,
+  action,
+  hasClose = true,
+  className,
+  color = 'primary',
+  icon,
+  title,
+  subtitle,
+  radius,
+  duration = 6000,
+  onComplete,
+  position,
+  ...props
+}: Toast & { position?: AlertContainerProps['position'] }): ReactNode => {
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const innerRef = useRef<HTMLDivElement | null>(null);
+
+  const dismissRef = useRef(dismiss);
+  const idRef = useRef(id);
+  const onCompleteRef = useRef(onComplete);
+
+  const isBottom = position?.includes('bottom');
+  const directionY = useRef(isBottom ? -100 : 100);
+  useGSAP(
+    () => {
+      if (wrapperRef.current && innerRef.current) {
+        const height = innerRef.current.clientHeight;
+        gsap.set(wrapperRef.current, { height: 0 });
+        gsap.to(wrapperRef.current, {
+          height,
+          duration: 0.48,
+          ease: 'expo.out',
+        });
+        gsap.from(innerRef.current, {
+          opacity: 0,
+          y: -directionY.current,
+          scale: 0.2,
+          duration: 0.48,
+          ease: 'expo.out',
+        });
+      }
     },
-    ref
-  ): ReactNode => {
-    const { dismiss } = useToast();
+    { scope: wrapperRef }
+  );
+  const handleDismiss = () => {
+    if (wrapperRef.current && innerRef.current) {
+      gsap.to(innerRef.current, {
+        opacity: 0,
+        y: -directionY.current,
+        scale: 0,
+        duration: 0.46,
+        ease: 'expo.in',
+      });
+      gsap.to(wrapperRef.current, {
+        height: 0,
+        duration: 0.46,
+        ease: 'expo.in',
+        onComplete: () => {
+          dismissRef.current(idRef.current);
+          if (onCompleteRef.current) onCompleteRef.current();
+        },
+      });
+    } else {
+      dismissRef.current(idRef.current);
+      if (onCompleteRef.current) onCompleteRef.current();
+    }
+  };
+  useEffect(() => {
+    const timer = setTimeout(handleDismiss, duration);
+    return () => clearTimeout(timer);
+  }, [duration]);
 
-    useEffect(() => {
-      const timer = setTimeout(() => dismiss(id), duration);
-      return () => clearTimeout(timer);
-    }, [id, duration, dismiss]);
+  return (
+    <div ref={wrapperRef}>
+      <div ref={innerRef} {...props} className={cn(alertVariants({ radius, color }), className)}>
+        <div className={`${icon && 'gap-md'} flex items-center`}>
+          {icon && (
+            <span className="iconContainer p-sm stroke-notchange-white text-notchange-white rounded-full">
+              {icon}
+            </span>
+          )}
 
-    return (
-      <div ref={ref} {...props} className={cn(alertVariants({ radius, color }), className)}>
-        <div className={`${icon && 'gap-md'}" items-center" flex`}>
-          <div className="rounded-full *:stroke-white"></div>
-          {icon}
           <div className="flex flex-col items-start">
             <h6 className="text-size-16 font-xl">{title}</h6>
             <p className="text-size-14 font-lg">{subtitle}</p>
           </div>
         </div>
         <div className="gap-md flex items-center">
-          {action && <Button>{actionText}</Button>}
-          <HugeiconsIcon
-            icon={Cancel01Icon}
-            onClick={() => {
-              dismiss(id);
-            }}
-          />
+          {action}
+
+          {hasClose && (
+            <div
+              className="p-sm cursor-pointer"
+              onClick={() => {
+                handleDismiss();
+              }}
+            >
+              <Cancel01Icon />
+            </div>
+          )}
         </div>
       </div>
-    );
-  }
-);
-
-const Toaster = forwardRef<HTMLDivElement, AlertContainerProps>(({ position }, ref): ReactNode => {
-  const toasts = useSelector((state: RootState) => state.toast.toasts);
-  return (
-    <div ref={ref} className={cn(alertContainerVariants({ position }))}>
-      {toasts?.map((toast) => <Alert key={toast.id} {...toast} />)}
     </div>
   );
-});
+};
+
+const Toaster = ({ position }: AlertContainerProps): ReactNode => {
+  const toasts = useSelector((state: RootState) => state.toast.toasts);
+  return (
+    <div className={cn(alertContainerVariants({ position }))}>
+      {toasts?.map((toast, index) => (
+        <Alert
+          key={toast.id}
+          {...toast}
+          position={position}
+          className="relative"
+          style={{ zIndex: 1000 - index }}
+        />
+      ))}
+    </div>
+  );
+};
 
 export { Toaster };

@@ -9,6 +9,7 @@ import { persistor, store } from './core/store';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { routeTree } from './routeTree.gen';
+import Toaster from './components/ui/Alert';
 
 const router = createRouter({ routeTree });
 
@@ -21,6 +22,7 @@ declare module '@tanstack/react-router' {
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
+      <Toaster position={'top-right'} />
       <PersistGate loading={null} persistor={persistor}>
         <RouterProvider router={router} />
       </PersistGate>
