@@ -456,8 +456,6 @@
   --color-alert-danger-normal: var(--danger-9);
   --color-alert-danger-background: var(--danger-4);
 
-
-  
   --radius-xs: 0.25rem;
   --radius-1: 0.5rem;
   --radius-2: 0.75rem;
@@ -500,7 +498,6 @@
   --font-weight-lg: 600;
   --font-weight-xl: 700;
   --font-weight-2xl: 800;
-
 }
 
 @layer base {
