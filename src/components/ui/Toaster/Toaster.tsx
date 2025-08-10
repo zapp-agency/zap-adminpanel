@@ -1,5 +1,5 @@
 // React Core
-import { type HtmlHTMLAttributes, type ReactNode, useRef } from 'react';
+import { type HtmlHTMLAttributes, type ReactNode, useCallback, useEffect, useRef } from 'react';
 
 // Third Party Packages
 import { type VariantProps } from 'class-variance-authority';
@@ -14,7 +14,8 @@ import { dismiss } from '@/utils/Toast/toast.util';
 
 // styles
 import { alertContainerVariants, alertVariants } from './Toaster.style';
-import { usePopAnimation } from '@/core/hooks/usePopAnimation';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 
 interface AlertContainerProps
   extends Omit<HtmlHTMLAttributes<HTMLDivElement>, 'color'>,
@@ -54,16 +55,55 @@ export const Alert = ({
   const isBottom = position?.includes('bottom');
   const directionY = isBottom ? -100 : 100;
 
-  const { handleDismiss } = usePopAnimation({
-    directionY,
-    dismiss,
-    id,
-    onComplete,
-    duration,
-    innerRef,
-    wrapperRef,
-  });
+  useGSAP(
+    () => {
+      if (wrapperRef.current && innerRef.current) {
+        const height = innerRef.current.clientHeight;
+        gsap.set(wrapperRef.current, { height: 0 });
+        gsap.to(wrapperRef.current, {
+          height,
+          duration: 0.48,
+          ease: 'expo.out',
+        });
+        gsap.from(innerRef.current, {
+          opacity: 0,
+          y: -directionY,
+          scale: 0.2,
+          duration: 0.48,
+          ease: 'expo.out',
+        });
+      }
+    },
+    { scope: wrapperRef }
+  );
+  const handleDismiss = useCallback(() => {
+    if (wrapperRef.current && innerRef.current) {
+      gsap.to(innerRef.current, {
+        opacity: 0,
+        y: -directionY,
+        scale: 0,
+        duration: 0.32,
+        ease: 'power2.in',
+      });
+      gsap.to(wrapperRef.current, {
+        height: 0,
+        duration: 0.32,
+        ease: 'power2.in',
+        onComplete: () => {
+          dismiss(id);
+          if (onComplete) onComplete();
+        },
+      });
+    } else {
+      dismiss(id);
+      if (onComplete) onComplete();
+    }
+  }, [directionY, id, onComplete, wrapperRef, innerRef]);
 
+  useEffect(() => {
+    const timer = setTimeout(handleDismiss, duration);
+    return () => clearTimeout(timer);
+  }, [duration, handleDismiss]);
   return (
     <div ref={wrapperRef}>
       <div ref={innerRef} {...props} className={cn(alertVariants({ radius, color }), className)}>

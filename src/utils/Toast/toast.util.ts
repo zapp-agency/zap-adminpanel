@@ -1,5 +1,5 @@
 import { store } from '@/core/store';
-import { addToast, removeToast } from '@/core/store/features/toaster/toastSlice';
+import { addToast, removeToast } from '@/core/store/features/toaster/toast.slice';
 import type { Toast } from '@/core/store/types/toast.type';
 
 export const toast = (options: Omit<Toast, 'id'>) => {

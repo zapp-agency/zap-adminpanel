@@ -11,12 +11,19 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as PopoverImport } from './routes/popover'
 import { Route as ContactusImport } from './routes/contactus'
 import { Route as AlertImport } from './routes/alert'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const PopoverRoute = PopoverImport.update({
+  id: '/popover',
+  path: '/popover',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const ContactusRoute = ContactusImport.update({
   id: '/contactus',
@@ -74,6 +81,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactusImport
       parentRoute: typeof rootRoute
     }
+    '/popover': {
+      id: '/popover'
+      path: '/popover'
+      fullPath: '/popover'
+      preLoaderRoute: typeof PopoverImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -84,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/alert': typeof AlertRoute
   '/contactus': typeof ContactusRoute
+  '/popover': typeof PopoverRoute
 }
 
 export interface FileRoutesByTo {
@@ -91,6 +106,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/alert': typeof AlertRoute
   '/contactus': typeof ContactusRoute
+  '/popover': typeof PopoverRoute
 }
 
 export interface FileRoutesById {
@@ -99,14 +115,15 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/alert': typeof AlertRoute
   '/contactus': typeof ContactusRoute
+  '/popover': typeof PopoverRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/alert' | '/contactus'
+  fullPaths: '/' | '/about' | '/alert' | '/contactus' | '/popover'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/alert' | '/contactus'
-  id: '__root__' | '/' | '/about' | '/alert' | '/contactus'
+  to: '/' | '/about' | '/alert' | '/contactus' | '/popover'
+  id: '__root__' | '/' | '/about' | '/alert' | '/contactus' | '/popover'
   fileRoutesById: FileRoutesById
 }
 
@@ -115,6 +132,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AlertRoute: typeof AlertRoute
   ContactusRoute: typeof ContactusRoute
+  PopoverRoute: typeof PopoverRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -122,6 +140,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AlertRoute: AlertRoute,
   ContactusRoute: ContactusRoute,
+  PopoverRoute: PopoverRoute,
 }
 
 export const routeTree = rootRoute
@@ -137,7 +156,8 @@ export const routeTree = rootRoute
         "/",
         "/about",
         "/alert",
-        "/contactus"
+        "/contactus",
+        "/popover"
       ]
     },
     "/": {
@@ -151,6 +171,9 @@ export const routeTree = rootRoute
     },
     "/contactus": {
       "filePath": "contactus.tsx"
+    },
+    "/popover": {
+      "filePath": "popover.tsx"
     }
   }
 }
