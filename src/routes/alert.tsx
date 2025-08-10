@@ -11,7 +11,7 @@ export const Route = createFileRoute('/alert')({
 function RouteComponent() {
   return (
     <div className="flex h-screen items-center justify-center">
-      <Toaster position={'bottom-right'} />
+      <Toaster position={'top-right'} />
       <Button
         onClick={() => {
           toast({

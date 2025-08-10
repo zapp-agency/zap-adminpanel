@@ -1,23 +1,26 @@
 import { cva } from 'class-variance-authority';
 
-export const alertContainerVariants = cva('fixed  flex flex-col gap-md px-lg py-md min-w-[420px]', {
-  variants: {
-    position: {
-      'top-left': 'top-0 left-0',
-      'top-center': 'top-0 left-1/2 -translate-x-1/2',
-      'top-right': 'top-0 right-0',
-      'bottom-left': 'bottom-0 left-0 flex-col-reverse',
-      'bottom-center': 'bottom-0 left-1/2 flex-col-reverse -translate-x-1/2',
-      'bottom-right': 'bottom-0 right-0 flex-col-reverse',
+export const alertContainerVariants = cva(
+  'fixed  flex flex-col gap-md px-lg py-md min-w-[420px] pointer-events-none',
+  {
+    variants: {
+      position: {
+        'top-left': 'top-0 left-0',
+        'top-center': 'top-0 left-1/2 -translate-x-1/2',
+        'top-right': 'top-0 right-0',
+        'bottom-left': 'bottom-0 left-0 flex-col-reverse',
+        'bottom-center': 'bottom-0 left-1/2 flex-col-reverse -translate-x-1/2',
+        'bottom-right': 'bottom-0 right-0 flex-col-reverse',
+      },
     },
-  },
-  defaultVariants: {
-    position: 'top-center',
-  },
-});
+    defaultVariants: {
+      position: 'top-center',
+    },
+  }
+);
 
 export const alertVariants = cva(
-  'flex items-center justify-between gap-28 w-full  px-lg py-md  borders-sm ',
+  'flex items-center justify-between gap-28 w-full  px-lg py-md  borders-sm pointer-events-auto',
   {
     variants: {
       radius: {
