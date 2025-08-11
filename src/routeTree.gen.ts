@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as PopoverImport } from './routes/popover'
+import { Route as ModalImport } from './routes/modal'
 import { Route as ContactusImport } from './routes/contactus'
 import { Route as AlertImport } from './routes/alert'
 import { Route as AboutImport } from './routes/about'
@@ -22,6 +23,12 @@ import { Route as IndexImport } from './routes/index'
 const PopoverRoute = PopoverImport.update({
   id: '/popover',
   path: '/popover',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ModalRoute = ModalImport.update({
+  id: '/modal',
+  path: '/modal',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -81,6 +88,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactusImport
       parentRoute: typeof rootRoute
     }
+    '/modal': {
+      id: '/modal'
+      path: '/modal'
+      fullPath: '/modal'
+      preLoaderRoute: typeof ModalImport
+      parentRoute: typeof rootRoute
+    }
     '/popover': {
       id: '/popover'
       path: '/popover'
@@ -98,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/alert': typeof AlertRoute
   '/contactus': typeof ContactusRoute
+  '/modal': typeof ModalRoute
   '/popover': typeof PopoverRoute
 }
 
@@ -106,6 +121,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/alert': typeof AlertRoute
   '/contactus': typeof ContactusRoute
+  '/modal': typeof ModalRoute
   '/popover': typeof PopoverRoute
 }
 
@@ -115,15 +131,23 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/alert': typeof AlertRoute
   '/contactus': typeof ContactusRoute
+  '/modal': typeof ModalRoute
   '/popover': typeof PopoverRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/alert' | '/contactus' | '/popover'
+  fullPaths: '/' | '/about' | '/alert' | '/contactus' | '/modal' | '/popover'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/alert' | '/contactus' | '/popover'
-  id: '__root__' | '/' | '/about' | '/alert' | '/contactus' | '/popover'
+  to: '/' | '/about' | '/alert' | '/contactus' | '/modal' | '/popover'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/alert'
+    | '/contactus'
+    | '/modal'
+    | '/popover'
   fileRoutesById: FileRoutesById
 }
 
@@ -132,6 +156,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AlertRoute: typeof AlertRoute
   ContactusRoute: typeof ContactusRoute
+  ModalRoute: typeof ModalRoute
   PopoverRoute: typeof PopoverRoute
 }
 
@@ -140,6 +165,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AlertRoute: AlertRoute,
   ContactusRoute: ContactusRoute,
+  ModalRoute: ModalRoute,
   PopoverRoute: PopoverRoute,
 }
 
@@ -157,6 +183,7 @@ export const routeTree = rootRoute
         "/about",
         "/alert",
         "/contactus",
+        "/modal",
         "/popover"
       ]
     },
@@ -171,6 +198,9 @@ export const routeTree = rootRoute
     },
     "/contactus": {
       "filePath": "contactus.tsx"
+    },
+    "/modal": {
+      "filePath": "modal.tsx"
     },
     "/popover": {
       "filePath": "popover.tsx"
