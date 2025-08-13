@@ -34,27 +34,7 @@ export interface Toast
   onComplete?: (...args: unknown[]) => void;
 }
 
-export const Alert = ({
-  id,
-  action,
-  hasClose = true,
-  className,
-  color = 'primary',
-  icon,
-  title,
-  subtitle,
-  radius,
-  duration = 6000,
-  onComplete,
-  position,
-  ...props
-}: Toast & { position?: AlertContainerProps['position'] }): ReactNode => {
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
-  const innerRef = useRef<HTMLDivElement | null>(null);
-
-  const isBottom = position?.includes('bottom');
-  const directionY = isBottom ? -100 : 100;
-
+const useToastAnimation = ({ wrapperRef, innerRef, directionY, id, onComplete, duration }) => {
   useGSAP(
     () => {
       if (wrapperRef.current && innerRef.current) {
@@ -74,7 +54,7 @@ export const Alert = ({
         });
       }
     },
-    { scope: wrapperRef }
+    { dependencies: [] }
   );
   const handleDismiss = useCallback(() => {
     if (wrapperRef.current && innerRef.current) {
@@ -104,9 +84,47 @@ export const Alert = ({
     const timer = setTimeout(handleDismiss, duration);
     return () => clearTimeout(timer);
   }, [duration, handleDismiss]);
+  return { handleDismiss };
+};
+
+export const Alert = ({
+  id,
+  action,
+  hasClose = true,
+  className,
+  color = 'primary',
+  icon,
+  title,
+  subtitle,
+  radius,
+  duration = 6000,
+  onComplete,
+  position,
+  ...props
+}: Toast & { position?: AlertContainerProps['position'] }): ReactNode => {
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const innerRef = useRef<HTMLDivElement | null>(null);
+
+  const isBottom = position?.includes('bottom');
+  const directionY = isBottom ? -100 : 100;
+
+  const { handleDismiss } = useToastAnimation({
+    directionY,
+    duration,
+    id,
+    innerRef,
+    onComplete,
+    wrapperRef,
+  });
+
   return (
     <div ref={wrapperRef}>
-      <div ref={innerRef} {...props} className={cn(alertVariants({ radius, color }), className)}>
+      <div
+        ref={innerRef}
+        {...props}
+        className={cn(alertVariants({ radius, color }), className)}
+        style={{ willChange: 'transform, opacity' }}
+      >
         <div className={`${icon && 'gap-md'} flex items-center`}>
           {icon && (
             <span className="iconContainer p-sm stroke-notchange-white text-notchange-white rounded-full">
@@ -123,12 +141,7 @@ export const Alert = ({
           {action}
 
           {hasClose && (
-            <div
-              className="p-sm cursor-pointer"
-              onClick={() => {
-                handleDismiss();
-              }}
-            >
+            <div className="p-sm cursor-pointer" onClick={handleDismiss}>
               <Cancel01Icon />
             </div>
           )}
