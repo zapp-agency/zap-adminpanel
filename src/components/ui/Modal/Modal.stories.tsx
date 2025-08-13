@@ -25,6 +25,10 @@ const meta: Meta<typeof Modal> = {
       control: 'select',
       options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', 'full'],
     },
+    backdrop: {
+      control: 'select',
+      options: ['opaque', 'blur', 'clear'],
+    },
     hasClose: { control: 'boolean' },
   },
 };

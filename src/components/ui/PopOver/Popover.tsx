@@ -6,6 +6,9 @@ import {
   useEffect,
   type ReactNode,
   type CSSProperties,
+  useLayoutEffect,
+  memo,
+  useCallback,
 } from 'react';
 import { type VariantProps } from 'class-variance-authority';
 import gsap from 'gsap';
@@ -30,18 +33,19 @@ export const PopOver = ({ children }: PopOverProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      setIsOpen(false);
+    }
+  }, []);
   useEffect(() => {
     if (!isOpen) return;
-    const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isOpen]);
+  }, [isOpen, handleClickOutside]);
 
   return (
     <PopoverContext.Provider value={{ isOpen, setIsOpen }}>
@@ -104,53 +108,49 @@ interface PopoverContentProps extends VariantProps<typeof popoverContentVariants
   style?: CSSProperties;
 }
 
-export const PopoverContent = ({
-  children,
-  className,
-  placement,
-  radius,
-  style,
-}: PopoverContentProps) => {
-  const { isOpen } = useContext(PopoverContext);
-  const [visible, setVisible] = useState(false);
-  const contentRef = useRef<HTMLDivElement>(null);
+export const PopoverContent = memo(
+  ({ children, className, placement, radius, style }: PopoverContentProps) => {
+    const { isOpen } = useContext(PopoverContext);
+    const [visible, setVisible] = useState(false);
+    const contentRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (isOpen) {
-      setVisible(true);
-    } else if (visible && contentRef.current) {
-      gsap.to(contentRef.current, {
-        scale: 0,
-        opacity: 0,
-        duration: 0.22,
-        ease: 'power2.in',
-        onComplete: () => setVisible(false),
-      });
-    }
-  }, [isOpen, visible]);
+    useLayoutEffect(() => {
+      if (isOpen) {
+        setVisible(true);
+      } else if (visible && contentRef.current) {
+        gsap.to(contentRef.current, {
+          scale: 0,
+          opacity: 0,
+          duration: 0.22,
+          ease: 'power2.in',
+          onComplete: () => setVisible(false),
+        });
+      }
+    }, [isOpen, visible]);
 
-  useEffect(() => {
-    if (visible && contentRef.current && isOpen) {
-      const origin = getTransformOrigin(placement as string);
-      gsap.set(contentRef.current, { transformOrigin: origin });
+    useLayoutEffect(() => {
+      if (visible && contentRef.current && isOpen) {
+        const origin = getTransformOrigin(placement as string);
+        gsap.set(contentRef.current, { transformOrigin: origin });
 
-      gsap.fromTo(
-        contentRef.current,
-        { scale: 0, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.32, ease: 'expo.out' }
-      );
-    }
-  }, [visible, isOpen, placement]);
+        gsap.fromTo(
+          contentRef.current,
+          { scale: 0, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.32, ease: 'expo.out' }
+        );
+      }
+    }, [visible, isOpen, placement]);
 
-  if (!visible) return null;
+    if (!visible) return null;
 
-  return (
-    <div
-      ref={contentRef}
-      className={cn(popoverContentVariants({ placement, radius }), className)}
-      style={style}
-    >
-      {children}
-    </div>
-  );
-};
+    return (
+      <div
+        ref={contentRef}
+        className={cn(popoverContentVariants({ placement, radius }), className)}
+        style={{ ...style, willChange: 'opacity, transform' }}
+      >
+        {children}
+      </div>
+    );
+  }
+);

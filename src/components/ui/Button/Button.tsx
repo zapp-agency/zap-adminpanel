@@ -1,4 +1,4 @@
-import { type ButtonHTMLAttributes, type ReactNode, forwardRef } from 'react';
+import { type ButtonHTMLAttributes, type ReactNode } from 'react';
 
 import { type VariantProps, cva } from 'class-variance-authority';
 
@@ -199,34 +199,28 @@ interface ButtonProps
   endContent?: ReactNode;
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      endContent,
-      startContent,
-      className,
-      size = 'sm',
-      variant = 'default',
-      children,
-      iconOnly = false,
-      color = 'primary',
-      radius,
-      ...props
-    },
-    ref
-  ): ReactNode => {
-    return (
-      <button
-        ref={ref}
-        {...props}
-        className={cn(buttonVariants({ size, variant, iconOnly, color, radius }), className)}
-      >
-        {startContent}
-        {children}
-        {endContent}
-      </button>
-    );
-  }
-);
+const Button = ({
+  endContent,
+  startContent,
+  className,
+  size = 'sm',
+  variant = 'default',
+  children,
+  iconOnly = false,
+  color = 'primary',
+  radius,
+  ...props
+}: ButtonProps): ReactNode => {
+  return (
+    <button
+      {...props}
+      className={cn(buttonVariants({ size, variant, iconOnly, color, radius }), className)}
+    >
+      {startContent}
+      {children}
+      {endContent}
+    </button>
+  );
+};
 
 export { Button };
