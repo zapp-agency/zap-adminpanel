@@ -10,13 +10,14 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as PopoverImport } from './routes/popover'
-import { Route as ModalImport } from './routes/modal'
-import { Route as ContactusImport } from './routes/contactus'
-import { Route as AlertImport } from './routes/alert'
-import { Route as AboutImport } from './routes/about'
-import { Route as IndexImport } from './routes/index'
+import { Route as rootRoute } from './routes/__root';
+import { Route as PopoverImport } from './routes/popover';
+import { Route as PaginationImport } from './routes/pagination';
+import { Route as ModalImport } from './routes/modal';
+import { Route as ContactusImport } from './routes/contactus';
+import { Route as AlertImport } from './routes/alert';
+import { Route as AboutImport } from './routes/about';
+import { Route as IndexImport } from './routes/index';
 
 // Create/Update Routes
 
@@ -24,140 +25,150 @@ const PopoverRoute = PopoverImport.update({
   id: '/popover',
   path: '/popover',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
+
+const PaginationRoute = PaginationImport.update({
+  id: '/pagination',
+  path: '/pagination',
+  getParentRoute: () => rootRoute,
+} as any);
 
 const ModalRoute = ModalImport.update({
   id: '/modal',
   path: '/modal',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const ContactusRoute = ContactusImport.update({
   id: '/contactus',
   path: '/contactus',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const AlertRoute = AlertImport.update({
   id: '/alert',
   path: '/alert',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const AboutRoute = AboutImport.update({
   id: '/about',
   path: '/about',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/';
+      path: '/';
+      fullPath: '/';
+      preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
     '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/about';
+      path: '/about';
+      fullPath: '/about';
+      preLoaderRoute: typeof AboutImport;
+      parentRoute: typeof rootRoute;
+    };
     '/alert': {
-      id: '/alert'
-      path: '/alert'
-      fullPath: '/alert'
-      preLoaderRoute: typeof AlertImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/alert';
+      path: '/alert';
+      fullPath: '/alert';
+      preLoaderRoute: typeof AlertImport;
+      parentRoute: typeof rootRoute;
+    };
     '/contactus': {
-      id: '/contactus'
-      path: '/contactus'
-      fullPath: '/contactus'
-      preLoaderRoute: typeof ContactusImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/contactus';
+      path: '/contactus';
+      fullPath: '/contactus';
+      preLoaderRoute: typeof ContactusImport;
+      parentRoute: typeof rootRoute;
+    };
     '/modal': {
-      id: '/modal'
-      path: '/modal'
-      fullPath: '/modal'
-      preLoaderRoute: typeof ModalImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/modal';
+      path: '/modal';
+      fullPath: '/modal';
+      preLoaderRoute: typeof ModalImport;
+      parentRoute: typeof rootRoute;
+    };
+    '/pagination': {
+      id: '/pagination';
+      path: '/pagination';
+      fullPath: '/pagination';
+      preLoaderRoute: typeof PaginationImport;
+      parentRoute: typeof rootRoute;
+    };
     '/popover': {
-      id: '/popover'
-      path: '/popover'
-      fullPath: '/popover'
-      preLoaderRoute: typeof PopoverImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/popover';
+      path: '/popover';
+      fullPath: '/popover';
+      preLoaderRoute: typeof PopoverImport;
+      parentRoute: typeof rootRoute;
+    };
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/alert': typeof AlertRoute
-  '/contactus': typeof ContactusRoute
-  '/modal': typeof ModalRoute
-  '/popover': typeof PopoverRoute
+  '/': typeof IndexRoute;
+  '/about': typeof AboutRoute;
+  '/alert': typeof AlertRoute;
+  '/contactus': typeof ContactusRoute;
+  '/modal': typeof ModalRoute;
+  '/pagination': typeof PaginationRoute;
+  '/popover': typeof PopoverRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/alert': typeof AlertRoute
-  '/contactus': typeof ContactusRoute
-  '/modal': typeof ModalRoute
-  '/popover': typeof PopoverRoute
+  '/': typeof IndexRoute;
+  '/about': typeof AboutRoute;
+  '/alert': typeof AlertRoute;
+  '/contactus': typeof ContactusRoute;
+  '/modal': typeof ModalRoute;
+  '/pagination': typeof PaginationRoute;
+  '/popover': typeof PopoverRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/alert': typeof AlertRoute
-  '/contactus': typeof ContactusRoute
-  '/modal': typeof ModalRoute
-  '/popover': typeof PopoverRoute
+  __root__: typeof rootRoute;
+  '/': typeof IndexRoute;
+  '/about': typeof AboutRoute;
+  '/alert': typeof AlertRoute;
+  '/contactus': typeof ContactusRoute;
+  '/modal': typeof ModalRoute;
+  '/pagination': typeof PaginationRoute;
+  '/popover': typeof PopoverRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/alert' | '/contactus' | '/modal' | '/popover'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/alert' | '/contactus' | '/modal' | '/popover'
-  id:
-    | '__root__'
-    | '/'
-    | '/about'
-    | '/alert'
-    | '/contactus'
-    | '/modal'
-    | '/popover'
-  fileRoutesById: FileRoutesById
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths: '/' | '/about' | '/alert' | '/contactus' | '/modal' | '/pagination' | '/popover';
+  fileRoutesByTo: FileRoutesByTo;
+  to: '/' | '/about' | '/alert' | '/contactus' | '/modal' | '/pagination' | '/popover';
+  id: '__root__' | '/' | '/about' | '/alert' | '/contactus' | '/modal' | '/pagination' | '/popover';
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  AlertRoute: typeof AlertRoute
-  ContactusRoute: typeof ContactusRoute
-  ModalRoute: typeof ModalRoute
-  PopoverRoute: typeof PopoverRoute
+  IndexRoute: typeof IndexRoute;
+  AboutRoute: typeof AboutRoute;
+  AlertRoute: typeof AlertRoute;
+  ContactusRoute: typeof ContactusRoute;
+  ModalRoute: typeof ModalRoute;
+  PaginationRoute: typeof PaginationRoute;
+  PopoverRoute: typeof PopoverRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -166,12 +177,13 @@ const rootRouteChildren: RootRouteChildren = {
   AlertRoute: AlertRoute,
   ContactusRoute: ContactusRoute,
   ModalRoute: ModalRoute,
+  PaginationRoute: PaginationRoute,
   PopoverRoute: PopoverRoute,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {
@@ -184,6 +196,7 @@ export const routeTree = rootRoute
         "/alert",
         "/contactus",
         "/modal",
+        "/pagination",
         "/popover"
       ]
     },
@@ -201,6 +214,9 @@ export const routeTree = rootRoute
     },
     "/modal": {
       "filePath": "modal.tsx"
+    },
+    "/pagination": {
+      "filePath": "pagination.tsx"
     },
     "/popover": {
       "filePath": "popover.tsx"
