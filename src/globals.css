@@ -3,7 +3,7 @@
 @font-face {
   font-family: iranYekan;
   font-display: swap;
-  src: url('./assets/font/IRANYekanXVF.woff2') format('woff2');
+  src: url('./assets/font/IRANYekanXVFaNumVF.woff2') format('woff2');
 }
 
 :root {
@@ -388,6 +388,31 @@
   --color-button-danger-disable: var(--danger-7);
   --color-button-danger-backgroundLight: var(--danger-4);
 
+  /* Badge Tokens */
+  --color-badge-solid-background-default: var(--neutral-10);
+  --color-badge-solid-text-default: var(--notchange-white);
+  --color-badge-solid-background-primary: var(--primary-9);
+  --color-badge-solid-text-primary: var(--notchange-white);
+  --color-badge-solid-background-secondary: var(--info-9);
+  --color-badge-solid-text-secondary: var(--notchange-white);
+  --color-badge-solid-text-success: var(--success-12);
+  --color-badge-solid-background-success: var(--success-7);
+  --color-badge-solid-text-warning: var(--warning-11);
+  --color-badge-solid-background-warning: var(--warning-6);
+  --color-badge-solid-background-danger: var(--danger-9);
+  --color-badge-solid-text-danger: var(--notchange-white);
+  --color-badge-light-background-default: var(--neutral-6);
+  --color-badge-light-text-default: var(--neutral-11);
+  --color-badge-light-background-primary: var(--primary-5);
+  --color-badge-light-text-primary: var(--primary-9);
+  --color-badge-light-background-secondary: var(--info-5);
+  --color-badge-light-text-secondary: var(--info-9);
+  --color-badge-light-background-success: var(--success-5);
+  --color-badge-light-text-success: var(--success-9);
+  --color-badge-light-background-warning: var(--warning-3);
+  --color-badge-light-text-warning: var(--warning-8);
+  --color-badge-light-background-danger: var(--danger-5);
+  --color-badge-light-text-danger: var(--red-9);
   /* field Tokens */
   /* input */
   /* bg */

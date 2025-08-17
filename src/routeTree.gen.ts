@@ -16,6 +16,7 @@ import { Route as PopoverImport } from './routes/popover'
 import { Route as PaginationImport } from './routes/pagination'
 import { Route as ModalImport } from './routes/modal'
 import { Route as ContactusImport } from './routes/contactus'
+import { Route as BadgeImport } from './routes/badge'
 import { Route as AlertImport } from './routes/alert'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
@@ -49,6 +50,12 @@ const ModalRoute = ModalImport.update({
 const ContactusRoute = ContactusImport.update({
   id: '/contactus',
   path: '/contactus',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const BadgeRoute = BadgeImport.update({
+  id: '/badge',
+  path: '/badge',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -95,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AlertImport
       parentRoute: typeof rootRoute
     }
+    '/badge': {
+      id: '/badge'
+      path: '/badge'
+      fullPath: '/badge'
+      preLoaderRoute: typeof BadgeImport
+      parentRoute: typeof rootRoute
+    }
     '/contactus': {
       id: '/contactus'
       path: '/contactus'
@@ -139,6 +153,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/alert': typeof AlertRoute
+  '/badge': typeof BadgeRoute
   '/contactus': typeof ContactusRoute
   '/modal': typeof ModalRoute
   '/pagination': typeof PaginationRoute
@@ -150,6 +165,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/alert': typeof AlertRoute
+  '/badge': typeof BadgeRoute
   '/contactus': typeof ContactusRoute
   '/modal': typeof ModalRoute
   '/pagination': typeof PaginationRoute
@@ -162,6 +178,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/alert': typeof AlertRoute
+  '/badge': typeof BadgeRoute
   '/contactus': typeof ContactusRoute
   '/modal': typeof ModalRoute
   '/pagination': typeof PaginationRoute
@@ -175,6 +192,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/alert'
+    | '/badge'
     | '/contactus'
     | '/modal'
     | '/pagination'
@@ -185,6 +203,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/alert'
+    | '/badge'
     | '/contactus'
     | '/modal'
     | '/pagination'
@@ -195,6 +214,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/alert'
+    | '/badge'
     | '/contactus'
     | '/modal'
     | '/pagination'
@@ -207,6 +227,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AlertRoute: typeof AlertRoute
+  BadgeRoute: typeof BadgeRoute
   ContactusRoute: typeof ContactusRoute
   ModalRoute: typeof ModalRoute
   PaginationRoute: typeof PaginationRoute
@@ -218,6 +239,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AlertRoute: AlertRoute,
+  BadgeRoute: BadgeRoute,
   ContactusRoute: ContactusRoute,
   ModalRoute: ModalRoute,
   PaginationRoute: PaginationRoute,
@@ -238,6 +260,7 @@ export const routeTree = rootRoute
         "/",
         "/about",
         "/alert",
+        "/badge",
         "/contactus",
         "/modal",
         "/pagination",
@@ -253,6 +276,9 @@ export const routeTree = rootRoute
     },
     "/alert": {
       "filePath": "alert.tsx"
+    },
+    "/badge": {
+      "filePath": "badge.tsx"
     },
     "/contactus": {
       "filePath": "contactus.tsx"
