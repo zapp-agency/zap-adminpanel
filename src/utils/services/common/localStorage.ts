@@ -27,11 +27,4 @@ const clearStorage = (): void => {
   localStorage.clear();
 };
 
-export {
-  setItem,
-  getItem,
-  removeItem,
-  clearStorage,
-  setItemGeneric,
-  getItemGeneric,
-};
+export { setItem, getItem, removeItem, clearStorage, setItemGeneric, getItemGeneric };

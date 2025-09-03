@@ -11,24 +11,57 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as ProfileImport } from './routes/profile'
-import { Route as LoginImport } from './routes/login'
+import { Route as SkeletonImport } from './routes/skeleton'
+import { Route as PopoverImport } from './routes/popover'
+import { Route as PaginationImport } from './routes/pagination'
+import { Route as ModalImport } from './routes/modal'
+import { Route as ContactusImport } from './routes/contactus'
+import { Route as BadgeImport } from './routes/badge'
+import { Route as AlertImport } from './routes/alert'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
-import { Route as PostsIndexImport } from './routes/posts/index'
-import { Route as PostsPostIdImport } from './routes/posts/$postId'
 
 // Create/Update Routes
 
-const ProfileRoute = ProfileImport.update({
-  id: '/profile',
-  path: '/profile',
+const SkeletonRoute = SkeletonImport.update({
+  id: '/skeleton',
+  path: '/skeleton',
   getParentRoute: () => rootRoute,
 } as any)
 
-const LoginRoute = LoginImport.update({
-  id: '/login',
-  path: '/login',
+const PopoverRoute = PopoverImport.update({
+  id: '/popover',
+  path: '/popover',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PaginationRoute = PaginationImport.update({
+  id: '/pagination',
+  path: '/pagination',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ModalRoute = ModalImport.update({
+  id: '/modal',
+  path: '/modal',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ContactusRoute = ContactusImport.update({
+  id: '/contactus',
+  path: '/contactus',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const BadgeRoute = BadgeImport.update({
+  id: '/badge',
+  path: '/badge',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AlertRoute = AlertImport.update({
+  id: '/alert',
+  path: '/alert',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -41,18 +74,6 @@ const AboutRoute = AboutImport.update({
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const PostsIndexRoute = PostsIndexImport.update({
-  id: '/posts/',
-  path: '/posts/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const PostsPostIdRoute = PostsPostIdImport.update({
-  id: '/posts/$postId',
-  path: '/posts/$postId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -74,32 +95,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginImport
+    '/alert': {
+      id: '/alert'
+      path: '/alert'
+      fullPath: '/alert'
+      preLoaderRoute: typeof AlertImport
       parentRoute: typeof rootRoute
     }
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileImport
+    '/badge': {
+      id: '/badge'
+      path: '/badge'
+      fullPath: '/badge'
+      preLoaderRoute: typeof BadgeImport
       parentRoute: typeof rootRoute
     }
-    '/posts/$postId': {
-      id: '/posts/$postId'
-      path: '/posts/$postId'
-      fullPath: '/posts/$postId'
-      preLoaderRoute: typeof PostsPostIdImport
+    '/contactus': {
+      id: '/contactus'
+      path: '/contactus'
+      fullPath: '/contactus'
+      preLoaderRoute: typeof ContactusImport
       parentRoute: typeof rootRoute
     }
-    '/posts/': {
-      id: '/posts/'
-      path: '/posts'
-      fullPath: '/posts'
-      preLoaderRoute: typeof PostsIndexImport
+    '/modal': {
+      id: '/modal'
+      path: '/modal'
+      fullPath: '/modal'
+      preLoaderRoute: typeof ModalImport
+      parentRoute: typeof rootRoute
+    }
+    '/pagination': {
+      id: '/pagination'
+      path: '/pagination'
+      fullPath: '/pagination'
+      preLoaderRoute: typeof PaginationImport
+      parentRoute: typeof rootRoute
+    }
+    '/popover': {
+      id: '/popover'
+      path: '/popover'
+      fullPath: '/popover'
+      preLoaderRoute: typeof PopoverImport
+      parentRoute: typeof rootRoute
+    }
+    '/skeleton': {
+      id: '/skeleton'
+      path: '/skeleton'
+      fullPath: '/skeleton'
+      preLoaderRoute: typeof SkeletonImport
       parentRoute: typeof rootRoute
     }
   }
@@ -110,29 +152,38 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/login': typeof LoginRoute
-  '/profile': typeof ProfileRoute
-  '/posts/$postId': typeof PostsPostIdRoute
-  '/posts': typeof PostsIndexRoute
+  '/alert': typeof AlertRoute
+  '/badge': typeof BadgeRoute
+  '/contactus': typeof ContactusRoute
+  '/modal': typeof ModalRoute
+  '/pagination': typeof PaginationRoute
+  '/popover': typeof PopoverRoute
+  '/skeleton': typeof SkeletonRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/login': typeof LoginRoute
-  '/profile': typeof ProfileRoute
-  '/posts/$postId': typeof PostsPostIdRoute
-  '/posts': typeof PostsIndexRoute
+  '/alert': typeof AlertRoute
+  '/badge': typeof BadgeRoute
+  '/contactus': typeof ContactusRoute
+  '/modal': typeof ModalRoute
+  '/pagination': typeof PaginationRoute
+  '/popover': typeof PopoverRoute
+  '/skeleton': typeof SkeletonRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/login': typeof LoginRoute
-  '/profile': typeof ProfileRoute
-  '/posts/$postId': typeof PostsPostIdRoute
-  '/posts/': typeof PostsIndexRoute
+  '/alert': typeof AlertRoute
+  '/badge': typeof BadgeRoute
+  '/contactus': typeof ContactusRoute
+  '/modal': typeof ModalRoute
+  '/pagination': typeof PaginationRoute
+  '/popover': typeof PopoverRoute
+  '/skeleton': typeof SkeletonRoute
 }
 
 export interface FileRouteTypes {
@@ -140,39 +191,60 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
-    | '/login'
-    | '/profile'
-    | '/posts/$postId'
-    | '/posts'
+    | '/alert'
+    | '/badge'
+    | '/contactus'
+    | '/modal'
+    | '/pagination'
+    | '/popover'
+    | '/skeleton'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/login' | '/profile' | '/posts/$postId' | '/posts'
+  to:
+    | '/'
+    | '/about'
+    | '/alert'
+    | '/badge'
+    | '/contactus'
+    | '/modal'
+    | '/pagination'
+    | '/popover'
+    | '/skeleton'
   id:
     | '__root__'
     | '/'
     | '/about'
-    | '/login'
-    | '/profile'
-    | '/posts/$postId'
-    | '/posts/'
+    | '/alert'
+    | '/badge'
+    | '/contactus'
+    | '/modal'
+    | '/pagination'
+    | '/popover'
+    | '/skeleton'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  LoginRoute: typeof LoginRoute
-  ProfileRoute: typeof ProfileRoute
-  PostsPostIdRoute: typeof PostsPostIdRoute
-  PostsIndexRoute: typeof PostsIndexRoute
+  AlertRoute: typeof AlertRoute
+  BadgeRoute: typeof BadgeRoute
+  ContactusRoute: typeof ContactusRoute
+  ModalRoute: typeof ModalRoute
+  PaginationRoute: typeof PaginationRoute
+  PopoverRoute: typeof PopoverRoute
+  SkeletonRoute: typeof SkeletonRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  LoginRoute: LoginRoute,
-  ProfileRoute: ProfileRoute,
-  PostsPostIdRoute: PostsPostIdRoute,
-  PostsIndexRoute: PostsIndexRoute,
+  AlertRoute: AlertRoute,
+  BadgeRoute: BadgeRoute,
+  ContactusRoute: ContactusRoute,
+  ModalRoute: ModalRoute,
+  PaginationRoute: PaginationRoute,
+  PopoverRoute: PopoverRoute,
+  SkeletonRoute: SkeletonRoute,
 }
 
 export const routeTree = rootRoute
@@ -187,10 +259,13 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
-        "/login",
-        "/profile",
-        "/posts/$postId",
-        "/posts/"
+        "/alert",
+        "/badge",
+        "/contactus",
+        "/modal",
+        "/pagination",
+        "/popover",
+        "/skeleton"
       ]
     },
     "/": {
@@ -199,17 +274,26 @@ export const routeTree = rootRoute
     "/about": {
       "filePath": "about.tsx"
     },
-    "/login": {
-      "filePath": "login.tsx"
+    "/alert": {
+      "filePath": "alert.tsx"
     },
-    "/profile": {
-      "filePath": "profile.tsx"
+    "/badge": {
+      "filePath": "badge.tsx"
     },
-    "/posts/$postId": {
-      "filePath": "posts/$postId.tsx"
+    "/contactus": {
+      "filePath": "contactus.tsx"
     },
-    "/posts/": {
-      "filePath": "posts/index.tsx"
+    "/modal": {
+      "filePath": "modal.tsx"
+    },
+    "/pagination": {
+      "filePath": "pagination.tsx"
+    },
+    "/popover": {
+      "filePath": "popover.tsx"
+    },
+    "/skeleton": {
+      "filePath": "skeleton.tsx"
     }
   }
 }

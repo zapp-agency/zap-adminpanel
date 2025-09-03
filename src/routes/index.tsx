@@ -1,12 +1,26 @@
-import { createFileRoute } from "@tanstack/react-router";
-export const Route = createFileRoute("/")({
-  component: Index,
+import InputText from '@/components/ui/Inputs/InputText';
+import { createFileRoute } from '@tanstack/react-router';
+import { Home01Icon } from 'hugeicons-react';
+
+export const Route = createFileRoute('/')({
+  component: RouteComponent,
 });
 
-function Index() {
+function RouteComponent() {
   return (
-    <div className="min-h-screen p-4 container">
-      <main>home</main>
+    <div className="p-xs borders-xs grid h-screen place-content-center">
+      <InputText
+        variant="solid"
+        title="Title"
+        Icon={Home01Icon}
+        placeholder="Placeholder"
+        unit="Kg"
+        caption='Caption'
+        error='Error Message'
+        disabled={false}
+      />
+
+
     </div>
   );
 }
