@@ -29,7 +29,7 @@ interface InputProps
   extends InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof inputVariants> {
   title?: string;
-  Icon?: ComponentType<{ className: string }>;
+  icon?: ComponentType<{ className: string }>;
   unit?: ReactNode;
   caption?: string;
   error?: string;
@@ -44,7 +44,7 @@ const InputText = forwardRef<HTMLInputElement, InputProps>(
     caption,
     title,
     unit,
-    Icon,
+    icon: Icon,
     disabled = false,
     ...props
   }) => {

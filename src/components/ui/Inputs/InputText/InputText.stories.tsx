@@ -4,14 +4,13 @@ import InputText from '.';
 const meta: Meta<typeof InputText> = {
   component: InputText,
   args: {
-    variant: 'Primary',
+    variant: 'solid',
     title: 'input text',
-    icon: '+',
   },
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['Primary', 'Outside', 'Secondary'],
+      options: ['solid', 'light'],
     },
     title: {
       control: 'text',
