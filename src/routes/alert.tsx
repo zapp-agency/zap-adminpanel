@@ -1,23 +1,28 @@
-import Toaster from '@/components/ui/Alert';
 import Button from '@/components/ui/Button';
-import { useToast } from '@/core/hooks/useToaster';
+import Toaster from '@/components/ui/Toaster';
+import { toast } from '@/utils/Toast/toast.util';
 import { createFileRoute } from '@tanstack/react-router';
+import { CheckmarkCircle01Icon } from 'hugeicons-react';
 
 export const Route = createFileRoute('/alert')({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { toast } = useToast();
   return (
     <div className="flex h-screen items-center justify-center">
       <Toaster position={'top-right'} />
       <Button
         onClick={() => {
-          toast({ title: 'hello', subtitle: 'hello', color: 'danger' });
+          toast({
+            title: 'this is toaster',
+            subtitle: 'this is toaster subtitle ',
+            color: 'danger',
+            icon: <CheckmarkCircle01Icon />,
+          });
         }}
       >
-        Show
+        Toast
       </Button>
     </div>
   );

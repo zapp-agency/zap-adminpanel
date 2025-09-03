@@ -11,16 +11,51 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SkeletonImport } from './routes/skeleton'
+import { Route as PopoverImport } from './routes/popover'
+import { Route as PaginationImport } from './routes/pagination'
+import { Route as ModalImport } from './routes/modal'
 import { Route as ContactusImport } from './routes/contactus'
+import { Route as BadgeImport } from './routes/badge'
 import { Route as AlertImport } from './routes/alert'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
 
+const SkeletonRoute = SkeletonImport.update({
+  id: '/skeleton',
+  path: '/skeleton',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PopoverRoute = PopoverImport.update({
+  id: '/popover',
+  path: '/popover',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PaginationRoute = PaginationImport.update({
+  id: '/pagination',
+  path: '/pagination',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ModalRoute = ModalImport.update({
+  id: '/modal',
+  path: '/modal',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const ContactusRoute = ContactusImport.update({
   id: '/contactus',
   path: '/contactus',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const BadgeRoute = BadgeImport.update({
+  id: '/badge',
+  path: '/badge',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -67,11 +102,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AlertImport
       parentRoute: typeof rootRoute
     }
+    '/badge': {
+      id: '/badge'
+      path: '/badge'
+      fullPath: '/badge'
+      preLoaderRoute: typeof BadgeImport
+      parentRoute: typeof rootRoute
+    }
     '/contactus': {
       id: '/contactus'
       path: '/contactus'
       fullPath: '/contactus'
       preLoaderRoute: typeof ContactusImport
+      parentRoute: typeof rootRoute
+    }
+    '/modal': {
+      id: '/modal'
+      path: '/modal'
+      fullPath: '/modal'
+      preLoaderRoute: typeof ModalImport
+      parentRoute: typeof rootRoute
+    }
+    '/pagination': {
+      id: '/pagination'
+      path: '/pagination'
+      fullPath: '/pagination'
+      preLoaderRoute: typeof PaginationImport
+      parentRoute: typeof rootRoute
+    }
+    '/popover': {
+      id: '/popover'
+      path: '/popover'
+      fullPath: '/popover'
+      preLoaderRoute: typeof PopoverImport
+      parentRoute: typeof rootRoute
+    }
+    '/skeleton': {
+      id: '/skeleton'
+      path: '/skeleton'
+      fullPath: '/skeleton'
+      preLoaderRoute: typeof SkeletonImport
       parentRoute: typeof rootRoute
     }
   }
@@ -83,14 +153,24 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/alert': typeof AlertRoute
+  '/badge': typeof BadgeRoute
   '/contactus': typeof ContactusRoute
+  '/modal': typeof ModalRoute
+  '/pagination': typeof PaginationRoute
+  '/popover': typeof PopoverRoute
+  '/skeleton': typeof SkeletonRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/alert': typeof AlertRoute
+  '/badge': typeof BadgeRoute
   '/contactus': typeof ContactusRoute
+  '/modal': typeof ModalRoute
+  '/pagination': typeof PaginationRoute
+  '/popover': typeof PopoverRoute
+  '/skeleton': typeof SkeletonRoute
 }
 
 export interface FileRoutesById {
@@ -98,15 +178,48 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/alert': typeof AlertRoute
+  '/badge': typeof BadgeRoute
   '/contactus': typeof ContactusRoute
+  '/modal': typeof ModalRoute
+  '/pagination': typeof PaginationRoute
+  '/popover': typeof PopoverRoute
+  '/skeleton': typeof SkeletonRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/alert' | '/contactus'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/alert'
+    | '/badge'
+    | '/contactus'
+    | '/modal'
+    | '/pagination'
+    | '/popover'
+    | '/skeleton'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/alert' | '/contactus'
-  id: '__root__' | '/' | '/about' | '/alert' | '/contactus'
+  to:
+    | '/'
+    | '/about'
+    | '/alert'
+    | '/badge'
+    | '/contactus'
+    | '/modal'
+    | '/pagination'
+    | '/popover'
+    | '/skeleton'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/alert'
+    | '/badge'
+    | '/contactus'
+    | '/modal'
+    | '/pagination'
+    | '/popover'
+    | '/skeleton'
   fileRoutesById: FileRoutesById
 }
 
@@ -114,14 +227,24 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AlertRoute: typeof AlertRoute
+  BadgeRoute: typeof BadgeRoute
   ContactusRoute: typeof ContactusRoute
+  ModalRoute: typeof ModalRoute
+  PaginationRoute: typeof PaginationRoute
+  PopoverRoute: typeof PopoverRoute
+  SkeletonRoute: typeof SkeletonRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AlertRoute: AlertRoute,
+  BadgeRoute: BadgeRoute,
   ContactusRoute: ContactusRoute,
+  ModalRoute: ModalRoute,
+  PaginationRoute: PaginationRoute,
+  PopoverRoute: PopoverRoute,
+  SkeletonRoute: SkeletonRoute,
 }
 
 export const routeTree = rootRoute
@@ -137,7 +260,12 @@ export const routeTree = rootRoute
         "/",
         "/about",
         "/alert",
-        "/contactus"
+        "/badge",
+        "/contactus",
+        "/modal",
+        "/pagination",
+        "/popover",
+        "/skeleton"
       ]
     },
     "/": {
@@ -149,8 +277,23 @@ export const routeTree = rootRoute
     "/alert": {
       "filePath": "alert.tsx"
     },
+    "/badge": {
+      "filePath": "badge.tsx"
+    },
     "/contactus": {
       "filePath": "contactus.tsx"
+    },
+    "/modal": {
+      "filePath": "modal.tsx"
+    },
+    "/pagination": {
+      "filePath": "pagination.tsx"
+    },
+    "/popover": {
+      "filePath": "popover.tsx"
+    },
+    "/skeleton": {
+      "filePath": "skeleton.tsx"
     }
   }
 }

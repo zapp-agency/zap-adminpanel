@@ -14,8 +14,9 @@ const toastSlice = createSlice({
   initialState,
   reducers: {
     addToast: (state, action: PayloadAction<Omit<Toast, 'id'>>) => {
+      if (state.toasts.length >= 10) state.toasts.pop();
       const id = crypto.randomUUID();
-      state.toasts.push({ id, ...action.payload });
+      state.toasts.unshift({ id, ...action.payload });
     },
     removeToast: (state, action: PayloadAction<string>) => {
       state.toasts = state.toasts.filter((t) => t.id !== action.payload);
