@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import CryptoJS from 'crypto-js';
 
-const SECRET_KEY = import.meta.env.VITE_REACT_APP_COOKIE_SECRET || 'your-secret-key';
+const SECRET_KEY = import.meta.env.VITE_REACT_APP_COOKIE_SECRET ?? 'your-secret-key';
 
 const setSecureCookie = (name: string, value: unknown): void => {
   const encrypted = CryptoJS.AES.encrypt(JSON.stringify(value), SECRET_KEY).toString();

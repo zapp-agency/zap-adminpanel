@@ -12,7 +12,7 @@ function RouteComponent() {
       <InputText
         variant="solid"
         title="Title"
-        Icon={Home01Icon}
+        icon={Home01Icon}
         placeholder="Placeholder"
         unit="Kg"
         caption='Caption'

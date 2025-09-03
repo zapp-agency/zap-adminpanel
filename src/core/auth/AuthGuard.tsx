@@ -8,7 +8,7 @@ export default function AuthGuard({ children }: { children: ReactNode }): ReactN
 
   useEffect(() => {
     if (!isLoggedIn) navigate({ to: '/login' });
-  }, [isLoggedIn]);
+  }, [isLoggedIn, navigate]);
 
   return isLoggedIn ? <>{children}</> : null;
 }
