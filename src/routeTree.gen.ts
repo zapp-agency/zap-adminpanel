@@ -15,6 +15,7 @@ import { Route as SkeletonImport } from './routes/skeleton'
 import { Route as PopoverImport } from './routes/popover'
 import { Route as PaginationImport } from './routes/pagination'
 import { Route as ModalImport } from './routes/modal'
+import { Route as LoginImport } from './routes/login'
 import { Route as ContactusImport } from './routes/contactus'
 import { Route as BadgeImport } from './routes/badge'
 import { Route as AlertImport } from './routes/alert'
@@ -44,6 +45,12 @@ const PaginationRoute = PaginationImport.update({
 const ModalRoute = ModalImport.update({
   id: '/modal',
   path: '/modal',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LoginRoute = LoginImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -116,6 +123,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactusImport
       parentRoute: typeof rootRoute
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
     '/modal': {
       id: '/modal'
       path: '/modal'
@@ -155,6 +169,7 @@ export interface FileRoutesByFullPath {
   '/alert': typeof AlertRoute
   '/badge': typeof BadgeRoute
   '/contactus': typeof ContactusRoute
+  '/login': typeof LoginRoute
   '/modal': typeof ModalRoute
   '/pagination': typeof PaginationRoute
   '/popover': typeof PopoverRoute
@@ -167,6 +182,7 @@ export interface FileRoutesByTo {
   '/alert': typeof AlertRoute
   '/badge': typeof BadgeRoute
   '/contactus': typeof ContactusRoute
+  '/login': typeof LoginRoute
   '/modal': typeof ModalRoute
   '/pagination': typeof PaginationRoute
   '/popover': typeof PopoverRoute
@@ -180,6 +196,7 @@ export interface FileRoutesById {
   '/alert': typeof AlertRoute
   '/badge': typeof BadgeRoute
   '/contactus': typeof ContactusRoute
+  '/login': typeof LoginRoute
   '/modal': typeof ModalRoute
   '/pagination': typeof PaginationRoute
   '/popover': typeof PopoverRoute
@@ -194,6 +211,7 @@ export interface FileRouteTypes {
     | '/alert'
     | '/badge'
     | '/contactus'
+    | '/login'
     | '/modal'
     | '/pagination'
     | '/popover'
@@ -205,6 +223,7 @@ export interface FileRouteTypes {
     | '/alert'
     | '/badge'
     | '/contactus'
+    | '/login'
     | '/modal'
     | '/pagination'
     | '/popover'
@@ -216,6 +235,7 @@ export interface FileRouteTypes {
     | '/alert'
     | '/badge'
     | '/contactus'
+    | '/login'
     | '/modal'
     | '/pagination'
     | '/popover'
@@ -229,6 +249,7 @@ export interface RootRouteChildren {
   AlertRoute: typeof AlertRoute
   BadgeRoute: typeof BadgeRoute
   ContactusRoute: typeof ContactusRoute
+  LoginRoute: typeof LoginRoute
   ModalRoute: typeof ModalRoute
   PaginationRoute: typeof PaginationRoute
   PopoverRoute: typeof PopoverRoute
@@ -241,6 +262,7 @@ const rootRouteChildren: RootRouteChildren = {
   AlertRoute: AlertRoute,
   BadgeRoute: BadgeRoute,
   ContactusRoute: ContactusRoute,
+  LoginRoute: LoginRoute,
   ModalRoute: ModalRoute,
   PaginationRoute: PaginationRoute,
   PopoverRoute: PopoverRoute,
@@ -262,6 +284,7 @@ export const routeTree = rootRoute
         "/alert",
         "/badge",
         "/contactus",
+        "/login",
         "/modal",
         "/pagination",
         "/popover",
@@ -282,6 +305,9 @@ export const routeTree = rootRoute
     },
     "/contactus": {
       "filePath": "contactus.tsx"
+    },
+    "/login": {
+      "filePath": "login.tsx"
     },
     "/modal": {
       "filePath": "modal.tsx"
