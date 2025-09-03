@@ -8,16 +8,19 @@ export const Route = createFileRoute('/')({
 
 function RouteComponent() {
   return (
-    <div className="p-xs borders-xs grid h-screen place-content-center bg-gray-700">
+    <div className="p-xs borders-xs grid h-screen place-content-center">
       <InputText
-        variant="flat"
+        variant="solid"
         title="Title"
-        icon={<Home01Icon className="stroke-field-input-icon-normal size-6" />}
+        Icon={Home01Icon}
         placeholder="Placeholder"
         unit="Kg"
         caption='Caption'
-        
+        error='Error Message'
+        disabled={false}
       />
+
+
     </div>
   );
 }

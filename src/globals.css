@@ -417,8 +417,8 @@
   --color-field-input-unit-danger: var(--danger-9);
 
   /* border */
-  --color-field-input-border-normal: var(--neutral-3);
-  --color-field-input-border-disable: var(--neutral-5);
+  --color-field-input-border-hover: var(--neutral-4);
+  --color-field-input-border-focus: var(--neutral-6);
   --color-field-input-border-danger: var(--danger-9);
 
   /* Caption */
@@ -512,9 +512,7 @@
   .container {
     @apply mx-auto;
   }
-}
-@layer components {
-  .borders-xs {
+    .borders-xs {
     @apply border-[length:--borders-xs];
   }
   .borders-sm {
@@ -526,4 +524,7 @@
   .borders-lg {
     @apply border-(length:--borders-lg);
   }
+}
+@layer components {
+
 }

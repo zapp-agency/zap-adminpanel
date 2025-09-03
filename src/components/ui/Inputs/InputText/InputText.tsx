@@ -1,19 +1,26 @@
-import { type InputHTMLAttributes, type ReactNode, forwardRef } from 'react';
+import { type ComponentType, type InputHTMLAttributes, type ReactNode, forwardRef } from 'react';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { cn } from '@/utils';
+import InputCaption from '../Caption/Caption';
+import InputError from '../Error/Error';
 
 const inputVariants = cva(
-  'flex flex-nowrap items-center justify-between text-size-16 font-lg cursor-pointer rounded-6 px-xl',
+  'px-xl flex h-18 flex-nowrap items-center justify-between rounded-6 borders-sm border-transparent duration-200   ',
   {
     variants: {
       variant: {
-        flat: `bg-field-input-bg-normal`,
-        light: `borders-sm border-secondary-3 bg-transparent hover:border-secondary-5 focus:border-secondary-5 disabled:border-secondary-2  `,
-        Outside: 'bg-transparent ',
+        solid: `bg-field-input-bg-normal  hover:border-field-input-border-hover focus-within:border-field-input-border-focus has-[input:disabled]:bg-field-input-bg-disable has-[input:disabled]:border-transparent `,
+        light: `bg-transparent`,
+        // Outside: '',
+      },
+      titilePlacmet: {
+        inside: '',
+        outside: '',
       },
     },
     defaultVariants: {
-      variant: 'flat',
+      variant: 'solid',
+      titilePlacmet: 'inside',
     },
   }
 );
@@ -22,41 +29,68 @@ interface InputProps
   extends InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof inputVariants> {
   title?: string;
-  icon?: ReactNode;
+  Icon?: ComponentType<{ className: string }>;
   unit?: ReactNode;
   caption?: string;
   error?: string;
 }
 
 const InputText = forwardRef<HTMLInputElement, InputProps>(
-  ({ variant, className, error, caption, icon, title, unit, ...props }) => {
+  ({
+    variant = 'solid',
+    titilePlacmet = 'inside',
+    className,
+    error,
+    caption,
+    title,
+    unit,
+    Icon,
+    disabled = false,
+    ...props
+  }) => {
     return (
-      <>
-        {/* {variant === 'Outside' && <label></label>}
-        <div className={cn(inputVariants({ variant }), className)}>
-          {icon}
-          <div>
-            {variant === 'flat' || (variant === 'light' && <label></label>)}
-            <input {...props} type="text" className="outline-none" />
-          </div>
-          {caption && <div className="">{caption}</div>}
-          {error && <div className="">{error}</div>}
-        </div> */}
+      <div className="gap-sm flex flex-col">
+        {titilePlacmet === 'outside' && (
+          <span
+            className={`font-lg text-size-12 ${disabled ? 'text-field-input-title-disable' : 'text-field-input-title-normal'}`}
+          >
+            {title}
+          </span>
+        )}
 
-        <div className="rounded-6 bg-field-input-bg-normal px-xl flex h-18 flex-nowrap items-center justify-between">
+        <label className={cn(inputVariants({ variant }), className)}>
           <div className="gap-md flex h-fit items-center">
-            {icon}
+            {Icon && (
+              <Icon
+                className={`size-6 ${disabled ? 'text-field-input-icon-disable' : 'text-field-input-icon-normal'} `}
+              />
+            )}
+
             <div className="gap-sm flex flex-col content-stretch">
-              <span className="font-lg text-size-12">{title}</span>
+              {titilePlacmet === 'inside' && (
+                <span
+                  className={`font-lg text-size-12 ${disabled ? 'text-field-input-title-disable' : 'text-field-input-title-normal'}`}
+                >
+                  {title}
+                </span>
+              )}
+
               <input
                 {...props}
-                className="placeholder:text-field-input-placeholder-normal text-size-14 w-full font-extrabold outline-none"
+                disabled={disabled}
+                className="disabled:placeholder:text-field-input-placeholder-disable placeholder:text-field-input-placeholder-normal text-size-14 w-full font-extrabold outline-none"
               />
             </div>
           </div>
-          <span className="text-size-16 font-lg text-field-input-unit-normal">{unit}</span>
-        </div>
-      </>
+          <span
+            className={`text-size-16 font-lg ${disabled ? 'text-field-input-unit-disable' : 'text-field-input-unit-normal'}`}
+          >
+            {unit}
+          </span>
+        </label>
+        <InputError>{error}</InputError>
+        <InputCaption>{caption}</InputCaption>
+      </div>
     );
   }
 );
